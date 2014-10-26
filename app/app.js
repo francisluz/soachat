@@ -7,5 +7,6 @@ app.controller("ChatCtrl", function($scope, $firebase) {
 
   $scope.addMessage = function(text) {
     $scope.messages.$add({text: text});
+    newMessageText = "";
   }
 });
