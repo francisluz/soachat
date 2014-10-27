@@ -35,7 +35,7 @@
   		</div>
 	    <div ng-hide="auth.user">
 	      <p>Bem vindo, por favor entre.
-	      <md-button class="md-theme-green" ng-click="auth.$login('google')">Entrar</md-button></p>
+	      <md-button class="md-theme-green" ng-click="auth.$login('google',{preferRedirect:true})">Entrar</md-button></p>
 		</div>
       </div>
     </md-toolbar>
