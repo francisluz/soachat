@@ -1,0 +1,12 @@
+.face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 36px;
+  margin: 5px; }
+
+md-input-group.long{
+	width: 100%;
+}
+
+md-input-group.long > input {
+    width: 100%; }
