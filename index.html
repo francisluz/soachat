@@ -17,6 +17,10 @@
 	<!-- AngularFire -->
 	<script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.min.js"></script>
 	<script src="https://cdn.firebase.com/js/simple-login/1.6.3/firebase-simple-login.js"></script>
+  <!--Google Drive picker-->
+  <script src="http://apis.google.com/js/client.js"></script>
+  <script src="http://apis.google.com/js/api.js"></script>
+  <script src="js/google-picker.min.js"></script>
 	<!--App Script-->
 	<script src="app/app.js"></script>
 </head>
@@ -63,12 +67,16 @@
       </md-list>
 </div>
 </md-content>
-    <!-- push a new message into the array -->
-<md-toolbar class="theme-dark-tff md-medium-tall" style="text-aling:bottom; position: relative; bottom:0;">
-<form ng-submit="addMessage(newMessageText)" class="md-toolbar-tools dark">
-  <md-text-float label="Mensagem"  ng-model="newMessageText" class="long" ></md-text-float>
-  <md-button class="md-theme-light-blue" layout-align="center end">Enviar</md-button>
-</form>
+<!-- push a new message into the array -->
+<md-toolbar class="theme-dark-tff md-medium-tall" style="margin-top: auto;">
+  <form ng-submit="addMessage(newMessageText)" class="md-toolbar-tools dark">
+  <a href="javascript:;" lk-google-picker picker-files="files">GDrive</a>
+  {{files}}
+    <md-text-float label="digite sua mensagem"  ng-model="newMessageText" class="long"></md-text-float>
+    <md-button class="md-button-fab md-button-fab-bottom-right md-theme-light-blue btnMargem">
+          >
+    </md-button>  
+  </form>
 </md-toolbar>
 </body>
 </html>

@@ -6,7 +6,9 @@
 
 md-input-group.long{
 	width: 100%;
+	color: #000000; 
 }
 
 md-input-group.long > input {
+	color: #000000; 
     width: 100%; }
