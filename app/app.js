@@ -1,4 +1,4 @@
-var app = angular.module("ChatApp", ["ngMaterial", "firebase", "lk-google-picker"])
+var app = angular.module("ChatApp", ["ngMaterial", "ngRoute", "firebase", "lk-google-picker"])
 .config(['lkGoogleSettingsProvider', function(lkGoogleSettingsProvider) {
 
   lkGoogleSettingsProvider.configure({
@@ -9,8 +9,21 @@ var app = angular.module("ChatApp", ["ngMaterial", "firebase", "lk-google-picker
    })
  }]);
 
+//Router
+app.config(["$routeProvider", function($routeProvider) {
+  $routeProvider.when("/chat", {
+    controller: "ChatCtrl",
+    templateUrl: "../views/chat.html"
+	}).
+  	otherwise({
+        redirectTo: '/chat'
+      });
+}]);
 
-app.controller("ChatCtrl", function($scope, $firebase, $firebaseSimpleLogin) {
+
+
+
+app.controller("ChatCtrl", function($scope, $routeParams, $firebase, $firebaseSimpleLogin) {
 
   $scope.files = [];
 
@@ -19,10 +32,14 @@ app.controller("ChatCtrl", function($scope, $firebase, $firebaseSimpleLogin) {
 
   $scope.auth = $firebaseSimpleLogin(ref);
 
+  //console.write($scope.auth);
+
+  //ref.child($scope.auth.user);
+
   $scope.messages = sync.$asArray();
 
-  $scope.addMessage = function(text) {
-    $scope.messages.$add({text: text});
+  $scope.addMessage = function(text, user) {
+    $scope.messages.$add({text: text, user: user});
     $scope.newMessageText = "";
   }
 });
