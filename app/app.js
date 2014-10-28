@@ -3,7 +3,7 @@ var app = angular.module("ChatApp", ["ngMaterial", "firebase", "lk-google-picker
 
   lkGoogleSettingsProvider.configure({
     apiKey   : 'AIzaSyAnYxzizdvb6TMiIpDgBW_FAXXLeSgDnzU',
-    clientId : '752915435201-qf5shuiaos1rks9k8bcgccadtcuvf4tt.apps.googleusercontent.com',
+    clientId : '752915435201-8ufbg59v14uc69fv6egfn23accvdrk92.apps.googleusercontent.com',
     scopes 	 : ['https://www.googleapis.com/auth/plus.login'],
     locale   : 'pt-br'
    })
