@@ -13,7 +13,7 @@ var app = angular.module("ChatApp", ["ngMaterial", "ngRoute", "firebase", "lk-go
 app.config(["$routeProvider", function($routeProvider) {
   $routeProvider.when("/chat", {
     controller: "ChatCtrl",
-    templateUrl: "../views/chat.html"
+    templateUrl: "views/chat.html"
 	}).
   	otherwise({
         redirectTo: '/chat'
