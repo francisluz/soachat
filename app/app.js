@@ -11,26 +11,95 @@ var app = angular.module("ChatApp", ["ngMaterial", "ngRoute", "firebase", "lk-go
 
 //Router
 app.config(["$routeProvider", function($routeProvider) {
-  $routeProvider.when("/chat", {
+  $routeProvider.
+  when("/login", {
+    controller: "LoginCtrl",
+    templateUrl: "views/login.html"
+	}).
+  when("/users", {
+    controller: "UsersCtrl",
+    templateUrl: "views/users.html"
+  }).
+  when("/chat", {
     controller: "ChatCtrl",
     templateUrl: "views/chat.html"
-	}).
+  }).
   	otherwise({
-        redirectTo: '/chat'
+        redirectTo: '/login'
       });
 }]);
 
 
+app.controller("LoginCtrl", function($scope, $rootScope, $location, $firebase, $firebaseSimpleLogin) {
+  
+  var ref = new Firebase("https://fiery-fire-1483.firebaseio.com");
+  var isNewUser = true;
+  var authClient = new FirebaseSimpleLogin(ref, function(error, user) {
+    if (error) {
+      console.log(error);
+    } else if (user) {
+      if( isNewUser ) {
+      // save new user's profile into Firebase so we can
+      ref.child('users').child(user.uid).set({
+        user: user});
+    }
+      $location.path('/users');
+      $location.replace();
+    }
+  });
+
+  $scope.clickLogin = function() {
+    
+    //var sync = $firebase(ref);
+    $rootScope.auth = $firebaseSimpleLogin(ref);
+    $rootScope.auth.$login('google',{preferRedirect:true});
+    //$scope.users = sync.$asArray();
+    //$scope.users.$add({user:$rootScope.auth.user});
+    
+  }
+});
 
 
-app.controller("ChatCtrl", function($scope, $routeParams, $firebase, $firebaseSimpleLogin) {
+app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location) {
+
+  var ref = new Firebase("https://fiery-fire-1483.firebaseio.com/users");
+  var sync = $firebase(ref);
+
+  $scope.auth = new FirebaseSimpleLogin(ref, function(error, user) {
+    if (error) {
+      console.log(error);
+    } else if (user) {
+      $scope.auth = user;
+      console.log(user);
+    } else{
+      $location.path('/login');
+      $location.replace();
+    }
+  });
+
+  $scope.users = sync.$asArray();
+  console.log($scope.users);
+});
+
+
+app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location) {
 
   $scope.files = [];
 
   var ref = new Firebase("https://fiery-fire-1483.firebaseio.com/messages");
   var sync = $firebase(ref);
 
-  $scope.auth = $firebaseSimpleLogin(ref);
+  $scope.auth = new FirebaseSimpleLogin(ref, function(error, user) {
+    if (error) {
+      console.log(error);
+    } else if (user) {
+      $scope.auth = user;
+      console.log(user);
+    } else{
+      $location.path('/login');
+      $location.replace();
+    }
+  });
 
   //console.write($scope.auth);
 
@@ -41,5 +110,10 @@ app.controller("ChatCtrl", function($scope, $routeParams, $firebase, $firebaseSi
   $scope.addMessage = function(text, user) {
     $scope.messages.$add({text: text, user: user});
     $scope.newMessageText = "";
+  }
+
+  $scope.clickLogout = function() {
+    $scope.auth = $firebaseSimpleLogin(ref);
+    $scope.auth.$logout();
   }
 });

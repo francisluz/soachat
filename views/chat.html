@@ -6,21 +6,17 @@
       </h2>
       </div>
       <div flex layout="horizontal" layout-align="end">
-        <div ng-show="auth.user">
+        <div ng-show="auth">
         <p>
-        <img ng-src="{{auth.user.thirdPartyUserData.picture}}" class="face" alt="{{auth.user.displayName}}">Olá, {{auth.user.thirdPartyUserData.given_name}}
-        <md-button class="md-theme-yellow" ng-click="auth.$logout()">Sair</md-button></p>
+        <img ng-src="{{auth.thirdPartyUserData.picture}}" class="face" alt="{{auth.displayName}}">Olá, {{auth.thirdPartyUserData.given_name}}
+        <md-button class="md-theme-yellow" ng-click="clickLogout()">Sair</md-button></p>
       </div>
-      <div ng-hide="auth.user">
-        <p>Bem vindo, por favor entre.
-        <md-button class="md-theme-green" ng-click="auth.$login('google',{preferRedirect:true})">Entrar</md-button></p>
-    </div>
       </div>
     </md-toolbar>
 <md-content>  
 <div>
     <md-list>
-      <md-item ng-repeat="message in messages|filter:message.user.id=auth.user.id">
+      <md-item ng-repeat="message in messages|filter:message.user.id=auth.id">
       <md-item-content>
       <div class="md-tile-left">
               <img ng-src="{{message.user.thirdPartyUserData.picture}}" class="face" alt="{{message.user.displayName}}">
@@ -43,7 +39,7 @@
 </md-content>
 <!-- push a new message into the array -->
 <md-toolbar class="theme-dark-tff md-medium-tall" style="margin-top: auto;">
-  <form ng-submit="addMessage(newMessageText, auth.user)" class="md-toolbar-tools dark">
+  <form ng-submit="addMessage(newMessageText, auth)" class="md-toolbar-tools dark">
   <a href="javascript:;" lk-google-picker picker-files="files">GDrive</a>
   {{files}}
     <md-text-float label="digite sua mensagem"  ng-model="newMessageText" class="long"></md-text-float>
