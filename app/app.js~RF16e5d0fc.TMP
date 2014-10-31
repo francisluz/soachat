@@ -110,15 +110,17 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
   var usersResult = sync.$asArray();
   console.log(usersResult);
 
-  //var usersResult2 = $filter('filter')(usersResult, { $id: currentUser.uid }, function (obj, test) { 
-  //                                      return obj === test; });
-  //console.log(usersResult2);
+  usersResult = $filter('filter')(usersResult, { $id: currentUser.uid }, function (obj, test) { 
+  	console.log("1: " + obj + " - " + test);
+                                        return obj !== test; });
+  console.log(usersResult);
 
-  //var usersResult3 = usersResult.filter(function(item) {
-  //  return item.id == currentUser.uid;
-  //});
+  usersResult = usersResult.filter(function(item) {
+  	console.log("1: " + item);
+    return item.$id !== currentUser.uid;
+  });
   
-  //console.log(usersResult3);
+  console.log(usersResult);
 
   $scope.users = usersResult;
   console.log($scope.users);

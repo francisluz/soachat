@@ -1,16 +1,17 @@
+<div style="height:100%">
 <md-toolbar class="theme-dark-tff md-medium-tall md-toolbar-tools dark" style="margin-top: auto;">
 <md-text-float label="pesquise o usuário" ng-model="search" class="long"></md-text-float>
 </md-toolbar>
-<md-content>  
-<div>
-    <md-list>
-      <md-item ng-repeat="user in users|filter:search">
+<md-content> 
+
+    <md-list>      
+      <md-item ng-repeat="user in users | filter:search | filter:(user.$id).toString !== (auth.uid).toString">
       <md-item-content>
       <div class="md-tile-left">
               <img ng-src="{{user.user.thirdPartyUserData.picture}}" class="face" alt="{{user.user.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3><a href="#/chat">{{user.user.displayName}}</a></h3>
+            <h3><a href="startChat()">{{user.user.displayName}}</a></h3>
           </div>
         <!-- exit a message >
         <input ng-model="message.text" ng-change="messages.$save(message)" />
@@ -20,5 +21,5 @@
       <md-divider ng-if="!$last"></md-divider>
       </md-item>
       </md-list>
-</div>
 </md-content>
+</div>

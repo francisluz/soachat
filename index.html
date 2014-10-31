@@ -4,6 +4,11 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css">
     <link rel="stylesheet" href="css/app.css">
+    <style>
+        html, body{
+          height: 100%;
+        }
+    </style>
 	
 	<title>SOA Chat - Firebase, Google auth and Google Drive</title>
 	<!-- AngularJs and Material -->
@@ -25,9 +30,6 @@
 	<!--App Script-->
 	<script src="app/app.js"></script>
 </head>
-<body layout="vertical" layout-fill>
-
-<span ng-view></span>
-	
+<body layout="vertical" layout-fill ng-view>
 </body>
 </html>
