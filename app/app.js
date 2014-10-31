@@ -18,7 +18,15 @@ app.config(["$routeProvider", function($routeProvider) {
 	}).
   when("/users", {
     controller: "UsersCtrl",
-    templateUrl: "views/users.html"
+    templateUrl: "views/users.html",
+        resolve: {
+      // controller will not be loaded until $getCurrentUser resolves
+      // simpleLogin refers to our $firebaseSimpleLogin wrapper in the example above
+      "currentUser": ["simpleLogin", function(simpleLogin) {
+        // $getCurrentUser returns a promise so the resolve waits for it to complete
+        return simpleLogin.$getCurrentUser();
+      }]
+    }
   }).
   when("/chat", {
     controller: "ChatCtrl",
@@ -29,11 +37,19 @@ app.config(["$routeProvider", function($routeProvider) {
       });
 }]);
 
-
-app.controller("LoginCtrl", function($scope, $rootScope, $location, $firebase, $firebaseSimpleLogin) {
-  
+app.factory("fbURL",["$firebase",function($firebase) {
   var ref = new Firebase("https://fiery-fire-1483.firebaseio.com");
-  var isNewUser = true;
+  return ref;
+}]);
+
+app.factory("simpleLogin", ["$firebaseSimpleLogin", "fbURL", function($firebaseSimpleLogin, fbURL) {
+  return $firebaseSimpleLogin(fbURL);
+}]);
+
+app.controller("LoginCtrl", function($scope, $rootScope, $location, $firebase, simpleLogin) {
+  
+  
+  /*var isNewUser = true;
   var authClient = new FirebaseSimpleLogin(ref, function(error, user) {
     if (error) {
       console.log(error);
@@ -46,26 +62,27 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, $firebase, $
       $location.path('/users');
       $location.replace();
     }
-  });
+  });*/
 
   $scope.clickLogin = function() {
     
     //var sync = $firebase(ref);
-    $rootScope.auth = $firebaseSimpleLogin(ref);
+    $rootScope.auth = simpleLogin;
     $rootScope.auth.$login('google',{preferRedirect:true});
     //$scope.users = sync.$asArray();
     //$scope.users.$add({user:$rootScope.auth.user});
-    
+    $location.path('/users');
+    $location.replace();
   }
 });
 
 
-app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location) {
+app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase, $location, fbURL, currentUser) {
 
-  var ref = new Firebase("https://fiery-fire-1483.firebaseio.com/users");
+  var ref = fbURL.child('users');
   var sync = $firebase(ref);
 
-  $scope.auth = new FirebaseSimpleLogin(ref, function(error, user) {
+  /*$scope.auth = new FirebaseSimpleLogin(ref, function(error, user) {
     if (error) {
       console.log(error);
     } else if (user) {
@@ -75,7 +92,8 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
       $location.path('/login');
       $location.replace();
     }
-  });
+  });*/
+  $scope.auth = currentUser;
 
   $scope.users = sync.$asArray();
   console.log($scope.users);
