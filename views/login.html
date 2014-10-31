@@ -1,6 +1,16 @@
-<div ng-controller="LoginCtrl">
-	<div>
-        <p>Bem vindo, por favor entre.
-        <md-button class="md-theme-green" ng-click="clickLogin()">Entrar</md-button></p>
+<style>
+    body {
+        background-image: url('../img/background.jpg');
+        background-position:center;
+        background-attachment:fixed;
+        background-repeat:no-repeat;
+        background-size: cover;
+    }
+</style>
+<div layout="vertical" layout-align="center center" ng-controller="LoginCtrl" style="height:100%">
+	<div style="color:#ffffff">
+        <h1>SOA Chat</h1>
+        <h3>Bem vindo, por favor entre.</h3>
+        <md-button class="md-theme-green" ng-click="clickLogin()">Entrar</md-button>
     </div>
 </div>
