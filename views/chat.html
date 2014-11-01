@@ -43,7 +43,7 @@
           </div>
       </md-item-content>
 
-      <md-item-content ng-show="message.userFrom.id !=auth.id">
+      <md-item-content ng-show="message.userFrom.id == paramId">
       <div class="md-tile-left">
               <img ng-src="{{message.userFrom.thirdPartyUserData.picture}}" class="face" alt="{{message.userFrom.displayName}}">
           </div>
@@ -56,7 +56,7 @@
         
       </md-item-content>
 
-      <md-item-content ng-show="message.userTo.id !=auth.id">
+      <md-item-content ng-show="message.userTo.id ==paramId">
       <div class="md-tile-right">
               <img ng-src="{{message.userTo.thirdPartyUserData.picture}}" class="face" alt="{{message.userTo.displayName}}">
           </div>

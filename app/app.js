@@ -164,6 +164,8 @@ app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase,
     }
   });
 
+  $scope.paramId = $routeParams.id;
+
 	var toRef = fbURL.child('users')
   	.startAt($routeParams.id)
     .endAt($routeParams.id)
