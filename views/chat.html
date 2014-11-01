@@ -23,7 +23,7 @@
               <img ng-src="{{message.userFrom.thirdPartyUserData.picture}}" class="face" alt="{{message.userFrom.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3>{{message.user.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
+            <h3>{{message.userFrom.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
             <p>
               {{message.text}}
             </p>
@@ -32,11 +32,11 @@
       </md-item-content>
 
       <md-item-content ng-show="message.userTo.id ==auth.id">
-      <div class="md-tile-right">
+          <div class="md-tile-left">
               <img ng-src="{{message.userTo.thirdPartyUserData.picture}}" class="face" alt="{{message.userTo.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3>{{message.user.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
+            <h3>{{message.userTo.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
             <p>
               {{message.text}}
             </p>
@@ -48,7 +48,7 @@
               <img ng-src="{{message.userFrom.thirdPartyUserData.picture}}" class="face" alt="{{message.userFrom.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3>{{message.user.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
+            <h3>{{message.userFrom.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
             <p>
               {{message.text}}
             </p>
@@ -57,11 +57,11 @@
       </md-item-content>
 
       <md-item-content ng-show="message.userTo.id ==paramId">
-      <div class="md-tile-right">
+          <div class="md-tile-left">
               <img ng-src="{{message.userTo.thirdPartyUserData.picture}}" class="face" alt="{{message.userTo.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3>{{message.user.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
+            <h3>{{message.userTo.displayName}} <md-button ng-click="messages.$remove(message)">X</md-button></h3>
             <p>
               {{message.text}}
             </p>
