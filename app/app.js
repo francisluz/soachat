@@ -24,10 +24,10 @@ app.directive('ngEnter', function() {
     });	
 
 //Router
-app.config(["$routeProvider", function($routeProvider) {
+app.config(function($routeProvider,$locationProvider) {
 
   $routeProvider.
-  when("/login", {
+  when("/", {
     templateUrl: "views/login.html"
 	}).
   when("/users", {
@@ -47,9 +47,11 @@ app.config(["$routeProvider", function($routeProvider) {
     controller: "ChatCtrl"
   }).
   	otherwise({
-        redirectTo: '/login'
+        redirectTo: '/'
       });
-}]);
+
+  $locationProvider.html5Mode(true);
+});
 
 app.factory("fbURL",["$firebase",function($firebase) {
   var ref = new Firebase("https://fiery-fire-1483.firebaseio.com");
@@ -114,7 +116,7 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
       $scope.auth = user;
       console.log(user);
     } else{
-      $location.path('/login');
+      $location.path('/');
       $location.replace();
     }
   });
@@ -174,7 +176,7 @@ app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase,
       $scope.auth = user;
       console.log(user);
     } else{
-      $location.path('/login');
+      $location.path('/');
       $location.replace();
     }
   });
