@@ -20,12 +20,12 @@
 
     <md-list>      
       <md-item ng-repeat="user in users | filter:search | filter: userFilter">
-      <md-item-content>
+      <md-item-content ng-click="startChat(user.user)" style="cursor:pointer">
       <div class="md-tile-left">
               <img ng-src="{{user.user.thirdPartyUserData.picture}}" class="face" alt="{{user.user.displayName}}">
           </div>
           <div class="md-tile-content">
-            <h3><a href="startChat()">{{user.user.displayName}}</a></h3>
+            <h3>{{user.user.displayName}}</h3>
           </div>
         <!-- exit a message >
         <input ng-model="message.text" ng-change="messages.$save(message)" />

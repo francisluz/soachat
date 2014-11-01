@@ -28,7 +28,7 @@ app.config(["$routeProvider", function($routeProvider) {
       }]
     }
   }).
-  when("/chat", {
+  when("/chat/:id", {
     templateUrl: "views/chat.html"
   }).
   	otherwise({
@@ -123,6 +123,20 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
   $scope.users = usersResult;
   console.log($scope.users);
 
+  $scope.startChat = function(to) {
+  	
+  	//var chatRef= fbURL.child('chats')
+  	//.startAt($scope.auth.email)
+    //.endAt(to.email)
+    //.once('value', function(snap) {
+    //   console.log('accounts matching email address', snap.val())
+    //});
+    
+
+  	$location.path('/chat/'+to.id);
+    $location.replace();
+  }
+
   $scope.userFilter = function (item) { 
     return item.$id != $scope.auth.uid; 
   };
@@ -133,14 +147,12 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
 });
 
 
-app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location) {
+app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location, fbURL) {
 
   $scope.files = [];
+  var authRef = fbURL;
 
-  var ref = new Firebase("https://fiery-fire-1483.firebaseio.com/messages");
-  var sync = $firebase(ref);
-
-  $scope.auth = new FirebaseSimpleLogin(ref, function(error, user) {
+  $scope.auth = new FirebaseSimpleLogin(authRef, function(error, user) {
     if (error) {
       console.log(error);
     } else if (user) {
@@ -152,14 +164,52 @@ app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase,
     }
   });
 
+	var toRef = fbURL.child('users')
+  	.startAt($routeParams.id)
+    .endAt($routeParams.id)
+    .once('value', function(snap) {
+       $scope.userTo = snap.val();
+    });
+
+
+  var msgRef = new Firebase("https://fiery-fire-1483.firebaseio.com/messages")
+  	.startAt($scope.auth.id)
+    .endAt($routeParams.id)
+    .once('value', function(snap) {
+       console.log('messages matching', snap.val())
+    });
+
+  console.log(msgRef);
+
+  var talkRef;
+
+  if(msgRef){
+  	talkRef = new Firebase("https://fiery-fire-1483.firebaseio.com/messages").child(msgRef.name());
+  }
+  else{
+	talkRef = new Firebase("https://fiery-fire-1483.firebaseio.com/messages");
+  }
+
+  var sync = $firebase(talkRef);
+
+  /*var chatRef= fbURL.child('chats')
+  	.startAt($scope.auth.email)
+    .endAt($scope.auth.email)
+    .once('value', function(snap) {
+       console.log('accounts matching email address', snap.val())
+    });
+
+    console.log(chatRef.)
+    */
+
   //console.write($scope.auth);
 
   //ref.child($scope.auth.user);
 
   $scope.messages = sync.$asArray();
 
-  $scope.addMessage = function(text, user) {
-    $scope.messages.$add({text: text, user: user});
+  $scope.addMessage = function(text) {
+    $scope.messages.$add({text: text, userTo: $scope.userTo, userFrom: $scope.auth});
     $scope.newMessageText = "";
   }
 
