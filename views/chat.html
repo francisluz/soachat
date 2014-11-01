@@ -74,11 +74,15 @@
 <!-- push a new message into the array -->
 <md-toolbar class="theme-dark-tff md-medium-tall" style="margin-top: auto;">
   <form ng-submit="addMessage(newMessageText)" class="md-toolbar-tools dark">
-  <a href="javascript:;" lk-google-picker picker-files="files">GDrive</a>
-  {{files}}
+  <!--<a href="javascript:;" lk-google-picker picker-files="files">GDrive</a>
+  {{files}}-->
+  <div flex="95">
     <md-text-float label="digite sua mensagem"  ng-model="newMessageText" class="long"></md-text-float>
-    <md-button class="md-button-fab md-button-fab-bottom-right md-theme-light-blue btnMargem">
+  </div>
+  <div flex="5" layout-align="center center">
+    <md-button class="md-button-fab md-theme-light-blue btnMargem">
           >
     </md-button>  
+  </div>
   </form>
 </md-toolbar>

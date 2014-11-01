@@ -1,7 +1,8 @@
 .face {
   border-radius: 30px;
   border: 1px solid #ddd;
-  width: 36px;
+  width: 42px;
+  height: 42px;
   margin: 5px; }
 
 md-input-group.long{
