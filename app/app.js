@@ -49,8 +49,6 @@ app.config(function($routeProvider,$locationProvider) {
   	otherwise({
         redirectTo: '/'
       });
-
-  $locationProvider.html5Mode(true);
 });
 
 app.factory("fbURL",["$firebase",function($firebase) {
