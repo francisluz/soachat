@@ -86,25 +86,25 @@ app.controller("LoginCtrl", function($scope, $rootScope, $location, $firebase, s
 });
 
 
-app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase, $location, $filter, fbURL, currentUser) {
+app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase, $location, $filter, fbURL, currentUser, simpleLogin) {
   
   var authRef = fbURL.child('users');
   //authRef.auth(currentUser.firebaseAuthToken);
   var sync = $firebase(authRef);
 
-  /*$scope.auth = new FirebaseSimpleLogin(authRef, function(error, user) {
+  $scope.auth = new FirebaseSimpleLogin(authRef, function(error, user) {
     if (error) {
       console.log(error);
     } else if (user) {
       $scope.auth = user;
       console.log(user);
     } else{
-      //$location.path('/login');
-      //$location.replace();
+      $location.path('/login');
+      $location.replace();
     }
-  });*/
+  });
 
-  $scope.auth = currentUser;
+  //$scope.auth = currentUser;
   console.log(currentUser);
 
   var usersResult = sync.$asArray();
@@ -126,6 +126,10 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
   $scope.userFilter = function (item) { 
     return item.$id != $scope.auth.uid; 
   };
+
+  $scope.clickLogout = function() {
+    simpleLogin.$logout();
+  }
 });
 
 
