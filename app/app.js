@@ -122,6 +122,10 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
 
   $scope.users = usersResult;
   console.log($scope.users);
+
+  $scope.userFilter = function (item) { 
+    return item.$id != $scope.auth.uid; 
+  };
 });
 
 

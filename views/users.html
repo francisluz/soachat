@@ -5,7 +5,7 @@
 <md-content> 
 
     <md-list>      
-      <md-item ng-repeat="user in users | filter:search | filter:(user.$id).toString !== (auth.uid).toString">
+      <md-item ng-repeat="user in users | filter:search | filter: userFilter">
       <md-item-content>
       <div class="md-tile-left">
               <img ng-src="{{user.user.thirdPartyUserData.picture}}" class="face" alt="{{user.user.displayName}}">
