@@ -1,16 +1,11 @@
   <md-toolbar class="md-theme-dark md-toolbar-tools">
-  <div flex="20">
-      <h2>
-        <span>SOA Chat</span>
-      </h2>
-      </div>
-      <div flex layout="horizontal" layout-align="end">
-        <div ng-show="auth">
-        <p>
-        <img ng-src="{{auth.thirdPartyUserData.picture}}" class="face" alt="{{auth.displayName}}">Olá, {{auth.thirdPartyUserData.given_name}}
-        <md-button class="md-theme-yellow" ng-click="clickLogout()">Sair</md-button></p>
-      </div>
-      </div>
+    <div flex="20" layout-align="center">
+      <md-button style="color:#ffffff" ng-click="clickUsers()">< Contatos</md-button>
+    </div>
+    <div flex="80" layout="horizontal" layout-align="end" ng-show="auth">
+        <p>Olá, {{auth.thirdPartyUserData.given_name}} </p>
+        <img ng-src="{{auth.thirdPartyUserData.picture}}" class="face" alt="{{auth.displayName}}" ng-click="clickLogout()" style="cursor:pointer">
+    </div>
     </md-toolbar>
 <md-content>  
 <div>
@@ -68,21 +63,19 @@
       </md-item-content>
       <md-divider ng-if="!$last"></md-divider>
       </md-item>
-      </md-list>
+    </md-list>
 </div>
 </md-content>
 <!-- push a new message into the array -->
-<md-toolbar class="theme-dark-tff md-medium-tall" style="margin-top: auto;">
-  <form ng-submit="addMessage(newMessageText)" class="md-toolbar-tools dark">
+<md-toolbar class="theme-dark-tff md-medium-tall md-toolbar-tools dark" style="margin-top: auto;">
+  <!--form ng-submit="" class="md-toolbar-tools"-->
   <!--<a href="javascript:;" lk-google-picker picker-files="files">GDrive</a>
   {{files}}-->
-  <div flex="95">
-    <md-text-float label="digite sua mensagem"  ng-model="newMessageText" class="long"></md-text-float>
+  <div flex="90">
+    <p><md-text-float label="digite sua mensagem"  ng-model="newMessageText" class="long" ng-enter="addMessage(newMessageText)"></md-text-float></p>
   </div>
-  <div flex="5" layout-align="center center">
-    <md-button class="md-button-fab md-theme-light-blue btnMargem">
-          >
-    </md-button>  
+  <div flex="10" layout="horizontal" layout-align="center">
+    <md-button ng-click="addMessage(newMessageText)">Enviar ></md-button>
   </div>
-  </form>
+  <!--/form-->
 </md-toolbar>

@@ -9,6 +9,20 @@ var app = angular.module("ChatApp", ["ngMaterial", "ngRoute", "firebase", "lk-go
    })
  }]);
 
+app.directive('ngEnter', function() {
+        return function(scope, element, attrs) {
+            element.bind("keydown keypress", function(event) {
+                if(event.which === 13) {
+                    scope.$apply(function(){
+                        scope.$eval(attrs.ngEnter, {'event': event});
+                    });
+
+                    event.preventDefault();
+                }
+            });
+        };
+    });	
+
 //Router
 app.config(["$routeProvider", function($routeProvider) {
 
@@ -148,7 +162,7 @@ app.controller("UsersCtrl", function($scope, $rootScope, $routeParams, $firebase
 });
 
 
-app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location, fbURL) {
+app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase, $firebaseSimpleLogin, $location, $anchorScroll, fbURL) {
 
   $scope.files = [];
   var authRef = fbURL;
@@ -210,6 +224,11 @@ app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase,
   //ref.child($scope.auth.user);
 
   $scope.messages = sync.$asArray();
+
+  $scope.clickUsers = function() {
+  	$location.path('/users');
+    $location.replace();
+  }
 
   $scope.addMessage = function(text) {
     $scope.messages.$add({text: text, userTo: $scope.userTo, userFrom: $scope.auth});

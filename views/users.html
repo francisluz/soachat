@@ -5,13 +5,10 @@
         <span>SOA Chat</span>
       </h2>
       </div>
-      <div flex layout="horizontal" layout-align="end">
-        <div ng-show="auth">
-        <p>
-        <img ng-src="{{auth.thirdPartyUserData.picture}}" class="face" alt="{{auth.displayName}}">Olá, {{auth.thirdPartyUserData.given_name}}
-        <md-button class="md-theme-yellow" ng-click="clickLogout()">Sair</md-button></p>
-      </div>
-      </div>
+      <div flex="80" layout="horizontal" layout-align="end" ng-show="auth">
+        <p>Olá, {{auth.thirdPartyUserData.given_name}} </p>
+        <img ng-src="{{auth.thirdPartyUserData.picture}}" class="face" alt="{{auth.displayName}}" ng-click="clickLogout()" style="cursor:pointer">
+    </div>
     </md-toolbar>
 <md-toolbar class="theme-dark-tff md-medium-tall md-toolbar-tools dark" style="margin-top: auto;">
 <md-text-float label="pesquise o usuário" ng-model="search" class="long"></md-text-float>
