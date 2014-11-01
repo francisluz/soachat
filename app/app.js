@@ -29,7 +29,8 @@ app.config(["$routeProvider", function($routeProvider) {
     }
   }).
   when("/chat/:id", {
-    templateUrl: "views/chat.html"
+    templateUrl: "views/chat.html",
+    controller: "ChatCtrl"
   }).
   	otherwise({
         redirectTo: '/login'
@@ -216,7 +217,7 @@ app.controller("ChatCtrl", function($scope, $rootScope, $routeParams, $firebase,
   }
 
   $scope.clickLogout = function() {
-    $scope.auth = $firebaseSimpleLogin(ref);
+    $scope.auth = $firebaseSimpleLogin(authRef);
     $scope.auth.$logout();
   }
 });
